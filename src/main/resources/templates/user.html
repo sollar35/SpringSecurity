@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>User Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="container">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">User Page</h1>
+            <p class="page-subtitle">Your personal information.</p>
+        </div>
+    </div>
 
-<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-<h1>User, welcome spring boot security page!</h1>
-
-
+    <div class="card">
+        <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+        <p><strong>First name:</strong> <span th:text="${user.firstName}"></span></p>
+        <p><strong>Last name:</strong> <span th:text="${user.lastName}"></span></p>
+        <p><strong>Age:</strong> <span th:text="${user.age}"></span></p>
+    </div>
+</div>
 </body>
 </html>
