@@ -20,6 +20,10 @@
         <p><strong>Last name:</strong> <span th:text="${user.lastName}"></span></p>
         <p><strong>Age:</strong> <span th:text="${user.age}"></span></p>
     </div>
+    <br>
+    <form th:action="@{/logout}" method="post">
+        <button class="logout-btn" type="submit">Logout</button>
+    </form>
 </div>
 </body>
 </html>

@@ -16,7 +16,7 @@
     </div>
 
     <div class="card">
-        <form th:action="@{/admin/save}" th:object="${user}" method="post">
+        <form th:action="@{/admin/save}" th:object="${userForm}" method="post">
             <input type="hidden" th:field="*{id}">
 
             <div class="form-group">
@@ -41,7 +41,27 @@
 
             <div class="form-group">
                 <label>Age</label>
-                <input class="input" type="number" th:field="*{age}">
+                <input class="input" type="number" th:field="*{age}" required>
+                <div class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Roles</label>
+
+                <div th:each="role : ${allRoles}">
+                    <label style="display:block; margin-bottom:6px;">
+                        <input type="checkbox"
+                               name="roleIds"
+                               th:value="${role.id}"
+                               th:checked="${userForm.roleIds != null and userForm.roleIds.contains(role.id)}">
+                        <span th:text="${role.name}"></span>
+                    </label>
+                </div>
+
+                <div class="error"
+                     th:if="${#fields.hasErrors('roleIds')}"
+                     th:errors="*{roleIds}">
+                </div>
             </div>
 
             <div class="form-actions">

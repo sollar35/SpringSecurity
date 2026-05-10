@@ -17,35 +17,63 @@
     </div>
 
     <div class="card">
-        <form th:action="@{/admin/save}" th:object="${user}" method="post">
+        <form th:action="@{/admin/save}" th:object="${userForm}" method="post">
             <input type="hidden" th:field="*{id}">
 
             <div class="form-group">
                 <label>Username</label>
-                <input class="input" type="text" th:field="*{username}">
+                <input id="username" class="input" type="text" th:field="*{username}">
+                <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
             </div>
 
             <div class="form-group">
                 <label>Password</label>
-                <input class="input" type="password" th:field="*{password}">
+                <input id="password" class="input" type="password" th:field="*{password}">
+                <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
             </div>
 
             <div class="form-group">
                 <label>First name</label>
-                <input class="input" type="text" th:field="*{firstName}">
+                <input id="firstName" class="input" type="text" th:field="*{firstName}">
+                <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
             </div>
 
             <div class="form-group">
                 <label>Last name</label>
-                <input class="input" type="text" th:field="*{lastName}">
+                <input id="lastName" class="input" type="text" th:field="*{lastName}">
+                <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
             </div>
 
             <div class="form-group">
                 <label>Age</label>
-                <input class="input" type="number" th:field="*{age}">
+                <input id="age" class="input" type="number" th:field="*{age}">
+                <div class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
             </div>
 
+            <div class="form-group">
 
+                <label>Roles</label>
+
+                <div th:each="role : ${allRoles}">
+
+                    <label style="display:block; margin-bottom:6px;">
+
+                        <input type="checkbox"
+                               name="roleIds"
+                               th:value="${role.id}">
+
+                        <span th:text="${role.name}"></span>
+
+                    </label>
+
+                </div>
+
+                <div class="error"
+                     th:if="${#fields.hasErrors('roleIds')}"
+                     th:errors="*{roleIds}">
+                </div>
+
+            </div>
 
             <div class="form-actions">
                 <button class="btn btn-primary" type="submit">Create</button>

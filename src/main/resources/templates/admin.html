@@ -11,6 +11,7 @@
     <div class="page-header">
         <div>
             <h1 class="page-title">Admin Panel</h1>
+            <p class="small">Вы вошли как: <strong th:text="${currentUsername}"></strong></p>
             <p class="page-subtitle">Manage users, edit them, or delete them. Human civilization finally found a use for tables.</p>
         </div>
         <a class="btn btn-primary" th:href="@{/admin/new}">Add New User</a>
@@ -49,6 +50,10 @@
             </tbody>
         </table>
     </div>
+    <br>
+    <form th:action="@{/logout}" method="post">
+        <button class="logout-btn" type="submit">Logout</button>
+    </form>
 </div>
 </body>
 </html>
