@@ -1,6 +1,7 @@
 package habsida.spring.boot_security.demo.service;
 
 import habsida.spring.boot_security.demo.dto.UserForm;
+import habsida.spring.boot_security.demo.dto.UserProfileForm;
 import habsida.spring.boot_security.demo.model.User;
 
 import org.springframework.stereotype.Service;
@@ -23,4 +24,10 @@ public interface UserService {
     void delete(Long id);
 
     UserForm toForm(Long id);
+
+    void updateCurrentUser(Long userId, UserForm userForm);
+
+    void updateMyProfile(Long userId, UserProfileForm form);
+
+    UserProfileForm toProfileForm(Long id);
 }

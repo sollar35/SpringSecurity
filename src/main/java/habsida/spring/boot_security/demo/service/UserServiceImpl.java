@@ -1,6 +1,7 @@
 package habsida.spring.boot_security.demo.service;
 
 import habsida.spring.boot_security.demo.dto.UserForm;
+import habsida.spring.boot_security.demo.dto.UserProfileForm;
 import habsida.spring.boot_security.demo.model.Role;
 import habsida.spring.boot_security.demo.model.User;
 import habsida.spring.boot_security.demo.repository.RoleRepository;
@@ -104,6 +105,49 @@ public class UserServiceImpl implements UserService{
         form.setLastName(user.getLastName());
         form.setAge(user.getAge());
         form.setRoleIds(user.getRoles().stream().map(Role::getId).toList());
+        return form;
+    }
+
+    @Override
+    public void updateCurrentUser(Long userId, UserForm userForm) {
+        User existing = userRepository.findById(userId).orElseThrow();
+
+        existing.setFirstName(userForm.getFirstName());
+        existing.setLastName(userForm.getLastName());
+        existing.setAge(userForm.getAge());
+
+        if (userForm.getPassword() != null && !userForm.getPassword().isEmpty()) {
+            existing.setPassword(passwordEncoder.encode(userForm.getPassword()));
+        }
+
+        userRepository.save(existing);
+    }
+
+    public void updateMyProfile(Long userId, UserProfileForm form) {
+        User existing = userRepository.findById(userId).orElseThrow();
+
+        existing.setFirstName(form.getFirstName());
+        existing.setLastName(form.getLastName());
+        existing.setAge(form.getAge());
+
+        if (form.getNewPassword() != null && !form.getNewPassword().isBlank()) {
+            existing.setPassword(passwordEncoder.encode(form.getNewPassword()));
+        }
+
+        userRepository.save(existing);
+    }
+
+    @Override
+    public UserProfileForm toProfileForm(Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+
+        UserProfileForm form = new UserProfileForm();
+        form.setId(user.getId());
+        form.setFirstName(user.getFirstName());
+        form.setLastName(user.getLastName());
+        form.setAge(user.getAge());
+        form.setNewPassword(null);
+
         return form;
     }
 }

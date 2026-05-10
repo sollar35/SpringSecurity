@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Edit Profile</h1>
+            <p class="page-subtitle">Change only your own data.</p>
+        </div>
+
+        <div class="actions">
+            <a class="btn btn-secondary" th:href="@{/user}">Back</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <form th:action="@{/user/edit}" th:object="${userProfileForm}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+                <label for="firstName">First name</label>
+                <input id="firstName" class="input" type="text" th:field="*{firstName}">
+                <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input id="lastName" class="input" type="text" th:field="*{lastName}">
+                <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input id="age" class="input" type="number" th:field="*{age}">
+                <div class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="newPassword">New password</label>
+                <input id="newPassword" class="input" type="password" th:field="*{newPassword}"
+                       placeholder="Leave empty to keep current password">
+                <div class="error" th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"></div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a class="btn btn-secondary" th:href="@{/user}">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

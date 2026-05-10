@@ -22,6 +22,8 @@
         <p><strong>Age:</strong> <span th:text="${user.age}"></span></p>
     </div>
     <br>
+    <a class="btn btn-primary" th:href="@{/user/edit}">Edit my profile</a>
+    <br><br>
     <div class="actions">
         <a class="btn btn-secondary" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')">
             Back to Admin
