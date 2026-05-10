@@ -14,7 +14,10 @@
             <p class="small">Вы вошли как: <strong th:text="${currentUsername}"></strong></p>
             <p class="page-subtitle">Manage users, edit them, or delete them. Human civilization finally found a use for tables.</p>
         </div>
-        <a class="btn btn-primary" th:href="@{/admin/new}">Add New User</a>
+        <div class="actions">
+            <a class="btn btn-secondary" th:href="@{/user}">My Profile</a>
+            <a class="btn btn-primary" th:href="@{/admin/new}">Add New User</a>
+        </div>
     </div>
 
     <div class="card table-wrap">

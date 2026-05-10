@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String userPage(Model model, Principal principal, ServletResponse servletResponse) {
+    public String userPage(Model model, Principal principal) {
         User user = service.findByUsername(principal.getName());
         model.addAttribute("user", user);
         return "user";
