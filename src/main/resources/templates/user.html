@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>User Page</title>
@@ -21,9 +22,16 @@
         <p><strong>Age:</strong> <span th:text="${user.age}"></span></p>
     </div>
     <br>
-    <form th:action="@{/logout}" method="post">
-        <button class="logout-btn" type="submit">Logout</button>
-    </form>
+    <div class="actions">
+        <a class="btn btn-secondary" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')">
+            Back to Admin
+        </a>
+
+        <form th:action="@{/logout}" method="post">
+            <button class="logout-btn" type="submit">Logout</button>
+        </form>
+    </div>
+
 </div>
 </body>
 </html>
