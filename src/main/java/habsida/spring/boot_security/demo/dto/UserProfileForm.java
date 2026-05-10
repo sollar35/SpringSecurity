@@ -58,5 +58,5 @@ public class UserProfileForm {
         this.newPassword = newPassword;
     }
 
-    // getters/setters
+
 }
