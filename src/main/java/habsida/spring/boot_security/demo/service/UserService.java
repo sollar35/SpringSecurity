@@ -4,8 +4,6 @@ import habsida.spring.boot_security.demo.dto.UserForm;
 import habsida.spring.boot_security.demo.dto.UserProfileForm;
 import habsida.spring.boot_security.demo.model.User;
 
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 

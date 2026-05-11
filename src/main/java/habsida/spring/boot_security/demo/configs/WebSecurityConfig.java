@@ -11,20 +11,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-
 import habsida.spring.boot_security.demo.service.UserService;
 import habsida.spring.boot_security.demo.repository.RoleRepository;
-
 import java.util.List;
-import java.util.Set;
 
-import habsida.spring.boot_security.demo.model.User;
-import habsida.spring.boot_security.demo.model.Role;
+
+
 
 
 @Configuration
@@ -59,19 +52,6 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-
-    // аутентификация inMemory
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                org.springframework.security.core.userdetails.User.builder()
-//                        .username("user")
-//                        .password(passwordEncoder().encode("user"))
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

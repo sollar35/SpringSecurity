@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
 
     private Set<Role> loadRoles(List<Long> roleIds) {
         if (roleIds == null || roleIds.isEmpty()) {
-            throw new RuntimeException("Choose at least one role");
+            return new HashSet<>();
         }
         return new HashSet<>(roleRepository.findAllById(roleIds));
     }
@@ -39,23 +39,26 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void save(UserForm userForm) {
+
         User existingUser = findByUsername(userForm.getUsername());
 
-        if (existingUser != null && (userForm.getId() == null || !existingUser.getId().equals(userForm.getId()))) {
+        if (existingUser != null) {
             throw new RuntimeException("User already exists");
         }
 
         User user = new User();
+
         user.setUsername(userForm.getUsername());
         user.setFirstName(userForm.getFirstName());
         user.setLastName(userForm.getLastName());
         user.setAge(userForm.getAge());
 
-        if (userForm.getPassword() != null  && !userForm.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(userForm.getPassword()));
-        }
+        user.setPassword(
+                passwordEncoder.encode(userForm.getPassword())
+        );
 
         user.setRoles(loadRoles(userForm.getRoleIds()));
+
         userRepository.save(user);
     }
 

@@ -1,7 +1,6 @@
 package habsida.spring.boot_security.demo.controller;
 
 import habsida.spring.boot_security.demo.dto.UserForm;
-import habsida.spring.boot_security.demo.model.User;
 import habsida.spring.boot_security.demo.repository.RoleRepository;
 import habsida.spring.boot_security.demo.service.UserService;
 import jakarta.validation.Valid;
@@ -9,9 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.Principal;
-import java.util.List;
+
+
+
 
 @Controller
 @RequestMapping("/admin")
@@ -52,13 +52,31 @@ public class AdminController {
                            @RequestParam(required = false) String newPassword,
                            Model model) {
 
+        if(userForm.getAge() == null) {
+            bindingResult.rejectValue("age", "age.empty", "Age is required");
+        }
+
+        if (userForm.getId() == null) {
+
+            if (userForm.getPassword() == null || userForm.getPassword().isBlank()) {
+                bindingResult.rejectValue("password", "password.empty", "Password is required");
+            }
+
+            if (userForm.getRoleIds() == null || userForm.getRoleIds().isEmpty()) {
+                bindingResult.rejectValue("roleIds", "roleIds.empty", "Choose at least one role");
+            }
+
+        } else {
+
+            if (userForm.getRoleIds() == null || userForm.getRoleIds().isEmpty()) {
+                bindingResult.rejectValue("roleIds", "roleIds.empty", "Choose at least one role");
+            }
+        }
+
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("allRoles", roleRepository.findAll());
             return userForm.getId() == null ? "create" : "edit";
-        }
-
-        if(userForm.getAge() == null) {
-            throw new RuntimeException("Age is required");
         }
 
         if (userForm.getId() == null) {
@@ -66,6 +84,7 @@ public class AdminController {
         } else {
             service.update(userForm, newPassword);
         }
+
         return "redirect:/admin";
     }
 
