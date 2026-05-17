@@ -4,83 +4,87 @@
 <head>
     <meta charset="UTF-8">
     <title>New User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<div class="container">
-    <div class="page-header">
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="page-title">Create User</h1>
-            <p class="page-subtitle">Add a new user to the system.</p>
+            <h1 class="fw-bold">Create User</h1>
+            <p class="text-muted">Add a new user to the system.</p>
         </div>
         <a class="btn btn-secondary" th:href="@{/admin}">Back</a>
     </div>
 
-    <div class="card">
+    <div class="card shadow-sm p-4">
         <form th:action="@{/admin/save}" th:object="${userForm}" method="post">
             <input type="hidden" th:field="*{id}">
 
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Username</label>
-                <input id="username" class="input" type="text" th:field="*{username}">
-                <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                <input id="username" class="form-control" type="text" th:field="*{username}" placeholder="Enter Username">
+                <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Password</label>
-                <input id="password" class="input" type="password" th:field="*{password}">
-                <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                <input id="password" class="form-control" type="password" th:field="*{password}" placeholder="Enter Password">
+                <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
                 <label>First name</label>
-                <input id="firstName" class="input" type="text" th:field="*{firstName}">
-                <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                <input id="firstName" class="form-control" type="text" th:field="*{firstName}" placeholder="Enter your First Name">
+                <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Last name</label>
-                <input id="lastName" class="input" type="text" th:field="*{lastName}">
-                <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                <input id="lastName" class="form-control" type="text" th:field="*{lastName}"placeholder="Enter your Last Name">
+                <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Age</label>
-                <input id="age" class="input" type="number" th:field="*{age}">
-                <div class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+                <input id="age" class="form-control" type="number" th:field="*{age}" placeholder="Enter your Age">
+                <div class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
 
                 <label>Roles</label>
 
                 <div th:each="role : ${allRoles}">
 
-                    <label style="display:block; margin-bottom:6px;">
-
-                        <input type="checkbox"
+                    <div class="form-check mb-2">
+                        <input class="form-check-input"
+                               type="checkbox"
                                name="roleIds"
                                th:value="${role.id}">
 
-                        <span th:text="${role.name}"></span>
-
-                    </label>
+                        <label class="form-check-label"
+                               th:text="${role.name}">
+                        </label>
+                    </div>
 
                 </div>
 
-                <div class="error"
+                <div class="text-danger"
                      th:if="${#fields.hasErrors('roleIds')}"
                      th:errors="*{roleIds}">
                 </div>
 
             </div>
 
-            <div class="form-actions">
+            <div class="d-flex gap-2">
                 <button class="btn btn-primary" type="submit">Create</button>
                 <a class="btn btn-secondary" th:href="@{/admin}">Cancel</a>
             </div>
         </form>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -4,36 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <title>User Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<div class="container">
-    <div class="page-header">
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="page-title">User Page</h1>
-            <p class="page-subtitle">Your personal information.</p>
+            <h1 class="fw-bold">User Page</h1>
+            <p class="text-muted">Your personal information.</p>
         </div>
     </div>
 
-    <div class="card">
-        <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
-        <p><strong>First name:</strong> <span th:text="${user.firstName}"></span></p>
-        <p><strong>Last name:</strong> <span th:text="${user.lastName}"></span></p>
-        <p><strong>Age:</strong> <span th:text="${user.age}"></span></p>
+    <div class="card shadow-sm p-4">
+        <div class="mb-3">
+            <strong>Username:</strong>
+            <div th:text="${user.username}"></div>
+        </div>
+
+        <div class="mb-3">
+            <strong>First name:</strong>
+            <div th:text="${user.firstName}"></div>
+        </div>
+
+        <div class="mb-3">
+            <strong>Last name:</strong>
+            <div th:text="${user.lastName}"></div>
+        </div>
+
+        <div class="mb-3">
+            <strong>Age:</strong>
+            <div th:text="${user.age}"></div>
+        </div>
+
+        <div class="mb-3">
+            <strong>Roles:</strong>
+
+            <div class="mt-2">
+                <span class="badge rounded-pill bg-secondary text-white me-1"
+                      th:each="role : ${user.roles}"
+                      th:text="${role.name}">
+                </span>
+            </div>
+        </div>
     </div>
-    <br>
-    <a class="btn btn-primary" th:href="@{/user/edit}">Edit my profile</a>
-    <br><br>
-    <div class="actions">
+
+    <div class="mt-4">
+        <a class="btn btn-primary"
+           th:href="@{/user/edit}">
+            Edit Profile
+        </a>
+    </div>
+
+    <div class="d-flex gap-2 align-items-center mt-4">
         <a class="btn btn-secondary" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')">
             Back to Admin
         </a>
 
         <form th:action="@{/logout}" method="post">
-            <button class="logout-btn" type="submit">Logout</button>
+            <button class="btn btn-danger" type="submit">
+                Logout
+            </button>
         </form>
     </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
